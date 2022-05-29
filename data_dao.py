@@ -97,7 +97,6 @@ class DataDAO:
         Получает в качестве аргумента имена двух актеров, сохраняет всех актеров из колонки cast
         и возвращает список тех, кто играет с ними в паре больше 2 раз.
         """
-        # !!! работает некорректно, возвращает повторяющийся список
 
         query = f"""
             SELECT `cast` from netflix
@@ -113,6 +112,9 @@ class DataDAO:
             if actor not in [actor_1, actor_2]:
                 if actor_list.count(actor) > 2:
                     result.append(actor)
+
+        result = set(result)
+        result = list(result)
         return result
 
     def search_by_params(self, type, release_year, genre):
@@ -132,4 +134,5 @@ class DataDAO:
         result = []
         for movie in movies:
             result.append({"title": movie[0], "description": movie[1]})
+
         return result
