@@ -29,6 +29,9 @@ class DataDAO:
                 """
 
         result = self.execute_query(query)
+        if not result:
+            return "Такого фильма нет"
+
         title = {
             "title": result[0][0],
             "country": result[0][1],
